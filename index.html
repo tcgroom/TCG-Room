@@ -2,89 +2,170 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TCG Room</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 0; padding: 0;
-      background-color: #f5f5f5;
+      font-family: 'Share Tech Mono', monospace;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA...'); /* Simulazione background animato */
+      background-size: cover;
+      background-position: center;
+      color: #00ff99;
+      overflow-x: hidden;
+      animation: fadeIn 1s ease-in-out;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
     header {
-      background-color: #fff;
+      background-color: #000;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 2px solid #00ff99;
+      box-shadow: 0 0 10px #00ff99;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: neonPulse 3s infinite;
     }
+
+    @keyframes neonPulse {
+      0%, 100% {
+        box-shadow: 0 0 10px #00ff99;
+      }
+      50% {
+        box-shadow: 0 0 20px #00ffcc;
+      }
+    }
+
     header h1 {
       margin: 0;
-      color: #e3350d;
+      color: #00ff99;
+      font-size: 2rem;
+      text-shadow: 0 0 10px #00ff99;
     }
+
     nav a {
       margin-left: 20px;
       text-decoration: none;
-      color: #333;
+      color: #00ff99;
+      transition: all 0.3s ease-in-out;
     }
+
+    nav a:hover {
+      color: #fff;
+      text-shadow: 0 0 5px #fff;
+    }
+
     section {
       padding: 2rem;
-      background-color: #fff;
       margin: 1rem auto;
       max-width: 1000px;
-      border-radius: 10px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 0 25px #00ff99;
+      animation: slideUp 0.8s ease-in-out;
     }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    h2 {
+      color: #fff;
+      text-shadow: 0 0 10px #00ff99;
+      border-bottom: 1px solid #00ff99;
+      padding-bottom: 0.5rem;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
+      gap: 1.5rem;
     }
+
     .card {
-      background-color: #fefefe;
-      border: 1px solid #ddd;
-      border-radius: 8px;
+      background: #000;
+      border: 1px solid #00ff99;
+      border-radius: 10px;
       padding: 1rem;
       text-align: center;
+      box-shadow: 0 0 15px #00ff99;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
     }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #00ffcc;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 12px;
+      background: linear-gradient(45deg, #00ff99, #00ccff);
+      z-index: -1;
+      filter: blur(10px);
+      opacity: 0.2;
+    }
+
     .card img {
       max-width: 100%;
-      border-radius: 4px;
+      border-radius: 6px;
     }
+
     .card h3 {
       margin: 0.5rem 0;
+      color: #00ccff;
+      text-shadow: 0 0 5px #00ccff;
     }
+
+    .card p {
+      color: #ccc;
+    }
+
     footer {
       text-align: center;
       padding: 1rem;
-      background-color: #fff;
-      border-top: 1px solid #ddd;
-      font-size: 0.9rem;
-      color: #555;
+      background-color: #000;
+      border-top: 1px solid #00ff99;
+      color: #00ff99;
+      box-shadow: 0 -2px 10px #00ff99;
     }
-    /* Pulsante chat Telegram */
-    #telegram-chat {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #0088cc;
-      color: white;
-      border: none;
-      border-radius: 50px;
-      padding: 15px 20px;
-      font-size: 1rem;
-      cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-      transition: background-color 0.3s ease;
-      z-index: 1000;
+
+    a {
+      color: #00ccff;
+      text-decoration: underline;
     }
-    #telegram-chat:hover {
-      background-color: #006699;
+
+    a:hover {
+      color: #fff;
     }
   </style>
 </head>
 <body>
-
   <header>
     <h1>TCG Room</h1>
     <nav>
@@ -96,11 +177,46 @@
   </header>
 
   <section id="home">
-    <h2>Benvenuto nel mio Pokémon Store</h2>
-    <p>Scopri prodotti selezionati per veri collezionisti: booster, box, carte singole e molto altro!</p>
+    <h2>Benvenuto in TCG Room</h2>
+    <p>Scopri prodotti selezionati per veri collezionisti: booster, etb, carte singole e molto altro!</p>
   </section>
 
   <section id="prodotti">
     <h2>Prodotti in Vetrina</h2>
     <div class="grid">
-      <div
+      <div class="card">
+        <img src="https://m.media-amazon.com/images/I/71Q1Iu4suML._AC_SL1500_.jpg" alt="Booster Pack Paradosso Temporale" />
+        <h3>Booster Pack - Paradosso Temporale</h3>
+        <p>Bustina sigillata dell'espansione Scarlatto e Violetto – Paradosso Temporale.</p>
+        <p><strong>€4,70</strong></p>
+      </div>
+      <div class="card">
+        <img src="https://m.media-amazon.com/images/I/81WLUahhRkL._AC_SL1500_.jpg" alt="Elite Trainer Box" />
+        <h3>Elite Trainer Box</h3>
+        <p>Box ricchi di contenuti per collezionisti, espansione Scarlatto e Violetto.</p>
+        <p><strong>€49,90</strong></p>
+      </div>
+      <div class="card">
+        <img src="https://m.media-amazon.com/images/I/71VR6pYi4xL._AC_SL1500_.jpg" alt="Carte Singole" />
+        <h3>Carte Singole</h3>
+        <p>Selezione di carte rare e ultra rare di varie espansioni.</p>
+        <p><strong>da €0,50</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="chi">
+    <h2>Chi sono</h2>
+    <p>Collezionista e venditore di prodotti Pokémon. Offro solo articoli originali e ben conservati.</p>
+  </section>
+
+  <section id="contatti">
+    <h2>Contattami</h2>
+    <p>Per informazioni e acquisti, scrivimi su <a href="https://t.me/tcgroom" target="_blank">Telegram</a>!</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 TCG Room. Tutti i diritti riservati.</p>
+  </footer>
+</body>
+</html>
